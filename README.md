@@ -2,7 +2,42 @@
 ### This is a basic image management API to Segmed challenge.
 &nbsp;&nbsp;
 # Getting started
-### To run this API you must follow the steps bellow:
+### To run the API you must run the command bellow in the project root folder:
+`In Linux:` 
+```sh
+$   ./bin/api
+```
+
+`In Windows:`
+```sh
+$   ./bin/api.exe
+``` 
+
+## API usage
+### There are 2 routes in API:
+| Route                | Http verb | Description                                                                                                            |
+| -------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------- |
+|`/`                   | `GET`     | `returns an array of json with file entity json`                                                                       |
+|`/{file_id}/?status=` | `PATCH`   | `receives a file_id path param and a status query param as true or false. Sets the file status otherwise return error` |
+
+
+### File entity json description example:
+```ts
+{
+    "id": "6f3749df-a762-44de-8385-098e2c7aa6b6",
+    "url": "https://segmed.blob.core.windows.net/segmed/anne-nygard-_W94Eb1iNYc-unsplash.jpg",
+    "status": false,
+    "updated_at": "2021-03-10T17:46:58.869505Z"
+}
+```
+
+## Testing API
+### You can install [Insomnia](https://insomnia.rest/download) and import the collection in folder collections. At Insomnia you can test the routes.
+
+
+&nbsp;&nbsp;
+# Advanced run
+### To run the API in a advanced environment using Postgres database and database migrations you must follow the steps bellow:
 
 ## 1. Dependencies
 ### Assure you have the following dependencies installed:
@@ -33,27 +68,6 @@ $   migrate -database ${POSTGRESQL_URL} -path internal/datastore/migrations up
 
 `3 - run api`
 ```sh
-$   go run main.go
+$   go run main.go postgres
 it will start api at localhost:8080 as defined in .env file. If you want to run in a different port, changes it in .env
 ```
-
-## 3. API usage
-### There are 2 routes in API:
-| Route                | Http verb | Description                                                                                                            |
-| -------------------- | --------- | ---------------------------------------------------------------------------------------------------------------------- |
-|`/`                   | `GET`     | `returns an array of json with file entity json`                                                                       |
-|`/{file_id}/?status=` | `PATCH`   | `receives a file_id path param and a status query param as true or false. Sets the file status otherwise return error` |
-
-
-### File entity json description example:
-```ts
-{
-    "id": "6f3749df-a762-44de-8385-098e2c7aa6b6",
-    "url": "https://segmed.blob.core.windows.net/segmed/anne-nygard-_W94Eb1iNYc-unsplash.jpg",
-    "status": false,
-    "updated_at": "2021-03-10T17:46:58.869505Z"
-}
-```
-
-### Testing API
-You can install [Insomnia](https://insomnia.rest/download) and import the collection in folder collections. At Insomnia you can test the routes.

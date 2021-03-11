@@ -3,13 +3,11 @@ package controllers
 import (
 	"net/http"
 	"strconv"
-	"time"
 
 	"github.com/google/uuid"
 	"github.com/labstack/echo"
 	"github.com/lndaquino/segmed-backend/pkg/entity"
 	"github.com/lndaquino/segmed-backend/pkg/errors"
-	"github.com/lndaquino/segmed-backend/utils"
 )
 
 // FileController struct models a controller for file routes
@@ -79,18 +77,5 @@ func (ctl FileController) Update(c echo.Context) error {
 		}
 	}
 
-	response := new(fileUpdateResponse)
-	if err := utils.ParseStruct(updatedFile, response); err != nil {
-		return c.JSON(http.StatusInternalServerError, map[string]string{
-			"message": err.Error(),
-		})
-	}
-
-	return c.JSON(http.StatusOK, response)
-}
-
-type fileUpdateResponse struct {
-	ID        string    `json:"id" gorm:"type:uuid;primary_key"`
-	Status    *bool     `json:"status"`
-	UpdatedAt time.Time `json:"updated_at"`
+	return c.JSON(http.StatusOK, updatedFile)
 }
